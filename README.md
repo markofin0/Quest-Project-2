@@ -14,6 +14,12 @@ In the inspector, you can customize the following properties:
 
 You can find the script that controls the balloon [here in the assets folder](./UnityQuest2020BalloonTemplate/Assets/Scripts/Template/BalloonBehavior.cs).
 
+## Technology Used
+
+- Unity 2020.3.48
+- Oculus Integration Package v50.0
+- Quest 2 headset
+
 ## Credits
 
 [The balloon model](https://www.cgtrader.com/free-3d-models/interior/other/free-3d-balloon) is from *WilliamJ7* on cgtrader.com.
