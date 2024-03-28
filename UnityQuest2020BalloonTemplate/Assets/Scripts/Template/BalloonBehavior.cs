@@ -3,6 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Defines the balloon physics and user interaction.
+/// Initially, the balloon will not be affected by gravity, and its velocity will always be 0.
+/// When you grab the balloon and let go of it, it starts to float away.
+/// When the balloon floats away, it will rotate to face upright as it moves up.
+/// 
+/// This script overrides the balloon rigidbody's Use Gravity and Angular Drag properties.
+/// 
+/// @author Alex Wills
+/// @date 28 March, 2024
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(OVRGrabbable))]
 public class BalloonBehavior : MonoBehaviour
@@ -39,7 +50,7 @@ public class BalloonBehavior : MonoBehaviour
     {
         if (!m_IsFloating && m_GrabScript.isGrabbed) { // First time grabbing the balloon
             m_IsReadyForRelease = true;
-        } else if (m_IsReadyForRelease && !m_GrabScript.isGrabbed) { // First time releasing the balloon
+        } else if (m_IsReadyForRelease && !m_GrabScript.isGrabbed && !m_IsFloating) { // First time releasing the balloon
             m_IsFloating = true;
         }
     }
@@ -51,7 +62,6 @@ public class BalloonBehavior : MonoBehaviour
             // Rotate a bit closer to facing up each physics frame
             Quaternion targetRot = Quaternion.RotateTowards(transform.rotation, s_UpQuaternion, m_RotationSpeed * Time.fixedDeltaTime);
             transform.rotation = targetRot;
-            
 
             // Accelerate to the float speed (add some acceleration, then clamp between the negative float speed and positive float speed)
             float newVerticalVelocity = Mathf.Clamp(m_Rigidbody.velocity.y + m_FloatAcceleration * Time.fixedDeltaTime, -m_MaxFloatSpeed, m_MaxFloatSpeed);
