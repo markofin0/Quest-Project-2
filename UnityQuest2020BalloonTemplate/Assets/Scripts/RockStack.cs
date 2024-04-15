@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 public class RockStack : MonoBehaviour
 {
