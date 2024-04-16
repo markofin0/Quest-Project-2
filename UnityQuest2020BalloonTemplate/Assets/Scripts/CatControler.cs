@@ -16,18 +16,25 @@ public class CatControler : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    private bool isBeingPat = false; 
+    // gameobject to store the player, so that it can start to follow them
+    public GameObject player; 
+
+    private bool playerInSphere = false;
+
+    // boolean to track if the pet has been fed a treat, after which they will start to follow the player
+    bool hasEaten;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        // 3
         InitializePatrolRoute();
 
         MoveToNextPatrolLocation();
 
         anim = GetComponent<Animator>();
         anim.SetBool("isWalking", true);
+
+        hasEaten = false;
     }
 
 
@@ -50,36 +57,45 @@ public class CatControler : MonoBehaviour
 
     private void Update()
     {
-        if(agent.remainingDistance < 0.2f && !agent.pathPending)
+        if (hasEaten && agent.isStopped != true)
+        {
+            agent.destination = player.transform.position;
+        }
+        else if (agent.remainingDistance < 0.2f && !agent.pathPending && !playerInSphere)
         {
             MoveToNextPatrolLocation();
         }
+
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            StartCoroutine(patCat());
+            playerInSphere = true;
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isSitting", true);
+            agent.isStopped = true;
+        }
+
+        if(other.gameObject.tag == "Treat")
+        {
+            hasEaten = true;
+            
         }
 
     }
-
-    public IEnumerator patCat()
+    public void OnTriggerExit(Collider other)
     {
-        isBeingPat = true;
-        anim.SetBool("isWalking", false);
-        anim.SetBool("isSitting", true);
-        agent.isStopped = true;
-
-        yield return new WaitForSeconds(5);
-
-        isBeingPat = false;
-        anim.SetBool("isSitting", false);
-        anim.SetBool("isWalking", true);
-        agent.isStopped = false;
-        MoveToNextPatrolLocation();
+        if(other.gameObject.tag == "Player")
+        {
+            agent.isStopped = false;
+            anim.SetBool("isSitting", false);
+            anim.SetBool("isWalking", true);
+            playerInSphere = false;
+        }
     }
+
 
 
 
