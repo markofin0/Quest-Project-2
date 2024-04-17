@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Rock
   - Treat
+  - Cat
+  - CatEat
   layers:
   - Default
   - TransparentFX

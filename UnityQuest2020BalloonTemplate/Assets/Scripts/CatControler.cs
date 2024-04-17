@@ -19,10 +19,12 @@ public class CatControler : MonoBehaviour
     // gameobject to store the player, so that it can start to follow them
     public GameObject player; 
 
-    private bool playerInSphere = false;
+    public bool playerInSphere = false;
 
     // boolean to track if the pet has been fed a treat, after which they will start to follow the player
-    bool hasEaten;
+    public bool hasEaten;
+
+    // Stopping distance for the navmesh 
 
     void Start()
     {
@@ -57,9 +59,11 @@ public class CatControler : MonoBehaviour
 
     private void Update()
     {
-        if (hasEaten && agent.isStopped != true)
+        if (hasEaten)
         {
             agent.destination = player.transform.position;
+            agent.stoppingDistance = 5f;
+
         }
         else if (agent.remainingDistance < 0.2f && !agent.pathPending && !playerInSphere)
         {
@@ -78,24 +82,35 @@ public class CatControler : MonoBehaviour
             agent.isStopped = true;
         }
 
-        if(other.gameObject.tag == "Treat")
-        {
-            hasEaten = true;
-            
-        }
-
     }
     public void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
-            agent.isStopped = false;
-            anim.SetBool("isSitting", false);
-            anim.SetBool("isWalking", true);
             playerInSphere = false;
+            if (!hasEaten)
+            {
+                agent.isStopped = false;
+                anim.SetBool("isSitting", false);
+                anim.SetBool("isWalking", true);
+                MoveToNextPatrolLocation();
+            }
+            else
+            {
+                agent.isStopped = false;
+                anim.SetBool("isSitting", false);
+                anim.SetBool("isWalking", true);
+                agent.destination = player.transform.position;
+                agent.stoppingDistance = 5f;
+
+            }
         }
     }
-
+    // Method for use in the treat script
+    public void eatTreat()
+    {
+        hasEaten = true;
+    }
 
 
 
