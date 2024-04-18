@@ -25,6 +25,7 @@ public class CatControler : MonoBehaviour
     public bool hasEaten;
 
     // Stopping distance for the navmesh 
+    public float stoppingDistance; 
 
     void Start()
     {
@@ -62,7 +63,7 @@ public class CatControler : MonoBehaviour
         if (hasEaten)
         {
             agent.destination = player.transform.position;
-            agent.stoppingDistance = 5f;
+            agent.stoppingDistance = stoppingDistance;
 
         }
         else if (agent.remainingDistance < 0.2f && !agent.pathPending && !playerInSphere)
@@ -101,7 +102,7 @@ public class CatControler : MonoBehaviour
                 anim.SetBool("isSitting", false);
                 anim.SetBool("isWalking", true);
                 agent.destination = player.transform.position;
-                agent.stoppingDistance = 5f;
+                agent.stoppingDistance = stoppingDistance;
 
             }
         }
