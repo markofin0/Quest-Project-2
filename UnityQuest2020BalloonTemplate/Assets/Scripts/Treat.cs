@@ -11,6 +11,8 @@ public class Treat : MonoBehaviour
 
     public CatControler CatControler;
 
+    public AudioSource eatSound; 
+
     public void Start()
     {
         CatControler = cat.GetComponent<CatControler>();
@@ -27,6 +29,7 @@ public class Treat : MonoBehaviour
         if(other.gameObject.CompareTag("CatEat"))
         {
             feedCat();
+            eatSound.Play();
             grab.grabbedBy.ForceRelease(grab);
             Destroy(this.gameObject);
 
