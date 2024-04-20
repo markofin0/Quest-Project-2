@@ -23,6 +23,9 @@ public class RockStack : MonoBehaviour
     // Int to track the number of stacked objects we currently have. 
     private int rockCount = 0; 
 
+    // Audiosource to hold the sound to be played when a rock is stacked
+    public AudioSource rockPlaceSound;
+
     public void Start()
     {
         /*
@@ -63,6 +66,7 @@ public class RockStack : MonoBehaviour
                 rockCount++;
                 // Now set the rock to kinnematic to stop its interactions. 
                 rock.GetComponent<Rigidbody>().isKinematic = true;
+                rockPlaceSound.Play();
                 // And make it so we can no longer pick it up.
                     
             }
