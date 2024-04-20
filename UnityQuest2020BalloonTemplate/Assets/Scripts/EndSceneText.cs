@@ -7,20 +7,25 @@ public class EndSceneText : MonoBehaviour
 {
     public Text endTextObject;
 
-    public ArrayList quests = new ArrayList() {false, false, false};
+    //public ArrayList quests = new ArrayList() {false, false, false};
+    public GameManagerScript gameManagerScript;
+    
+
     string endText = "";
 
     void Start()
     {
-        if ((bool)quests[0])
+
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        if ((bool)gameManagerScript.quests[0])
         {
             endText += "You have completed Stone Stacking! ";
         }
-        if ((bool)quests[1])
+        if ((bool)gameManagerScript.quests[1])
         {
-            endText += "You have completed Pet Sit! ";
+            endText += "You have fed the cat! ";
         }
-        if ((bool)quests[2])
+        if ((bool)gameManagerScript.quests[2])
         {
             endText += "You have floated some lanterns! ";
         }

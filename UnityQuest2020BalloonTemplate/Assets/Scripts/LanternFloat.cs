@@ -6,6 +6,7 @@ public class LanternFloat : MonoBehaviour
 {
     private OVRGrabbable m_GrabScript;
     public bool hasBeenGrabbed = false;
+    public GameManagerScript gameManagerScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class LanternFloat : MonoBehaviour
             if(hasBeenGrabbed == true)
             {
                 transform.position += Vector3.up * Time.deltaTime;
+                gameManagerScript.quests[2] = true;
             }
         }
     }

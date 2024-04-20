@@ -27,6 +27,8 @@ public class CatControler : MonoBehaviour
     // Stopping distance for the navmesh 
     public float stoppingDistance; 
 
+    public GameManagerScript gameManagerScript;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -81,6 +83,7 @@ public class CatControler : MonoBehaviour
             anim.SetBool("isWalking", false);
             anim.SetBool("isSitting", true);
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
         }
 
     }
@@ -88,6 +91,7 @@ public class CatControler : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            // bit of code to make it so the cat will follow the player after its eaten.
             playerInSphere = false;
             if (!hasEaten)
             {
@@ -111,6 +115,7 @@ public class CatControler : MonoBehaviour
     public void eatTreat()
     {
         hasEaten = true;
+        gameManagerScript.quests[1] = true; 
     }
 
 

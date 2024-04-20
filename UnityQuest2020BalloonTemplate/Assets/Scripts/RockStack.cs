@@ -26,6 +26,9 @@ public class RockStack : MonoBehaviour
     // Audiosource to hold the sound to be played when a rock is stacked
     public AudioSource rockPlaceSound;
 
+
+    public GameManagerScript gameManagerScript;
+
     public void Start()
     {
         /*
@@ -68,6 +71,9 @@ public class RockStack : MonoBehaviour
                 rock.GetComponent<Rigidbody>().isKinematic = true;
                 rockPlaceSound.Play();
                 // And make it so we can no longer pick it up.
+                gameManagerScript.quests[0] = true;
+
+
                     
             }
         }
