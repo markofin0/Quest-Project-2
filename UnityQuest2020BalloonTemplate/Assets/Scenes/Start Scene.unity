@@ -1146,10 +1146,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Rotate: Press left or right on the joysticks.\r\nMove: Push forward or
-    back on the left controller.\r\nTeleport: Push forward on the right controller
-    to activate. Release to Teleport\nGrab object: Press the grip button to grab
-    an object\nActivate: Press the trigger to activate items that support activation.
+  m_Text: "Rotate: Press left or right on the right joystick.\r\nMove: Use the left
+    controler to smoothly walk. \nTeleport: Push forward on the right controller
+    to activate. press trigger to teleport\nGrab object: Press the grip button to
+    grab an object\nActivate: Press the trigger to activate items that support activation.
     \n"
 --- !u!222 &1118184079
 CanvasRenderer:
